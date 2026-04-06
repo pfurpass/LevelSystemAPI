@@ -1,0 +1,35 @@
+name: LevelSystemAPI
+version: 1.0.0
+main: dev.levelsystem.LevelPlugin
+api-version: 1.20
+description: A powerful and modular Level & XP API for Minecraft (Spigot/Paper)
+authors: [ LevelSystem ]
+website: https://github.com/levelsystem/LevelSystemAPI
+
+softdepend:
+  - Vault
+  - PlaceholderAPI
+
+commands:
+  level:
+    description: Level system commands
+    usage: /level <subcommand>
+    aliases: [ lvl ]
+  xp:
+    description: XP management commands
+    usage: /xp <subcommand>
+    aliases: [ exp ]
+  skill:
+    description: Skill commands
+    usage: /skill <subcommand>
+
+permissions:
+  levelsystem.admin:
+    description: Full admin access
+    default: op
+  levelsystem.use:
+    description: Basic usage
+    default: true
+  levelsystem.xp.multiplier.vip:
+    description: VIP XP multiplier
+    default: false

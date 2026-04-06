@@ -1,0 +1,132 @@
+# =============================================
+#         LevelSystemAPI Configuration
+# =============================================
+
+# Maximum level a player can reach (0 = unlimited)
+max-level: 100
+
+# Level formula – supported variables: level
+# Examples:
+#   "100 * level^2"       → quadratic scaling
+#   "50 * level * 1.5"    → linear + multiplier
+#   "100 * level^1.5"     → moderate scaling
+level-formula: "100 * level^2"
+
+# XP rewards per action (configurable per-plugin, this is the default table)
+xp:
+  kill-mob: 10
+  break-block: 2
+  mine-ore: 8
+  craft-item: 3
+  fish-catch: 15
+  breed-animal: 5
+
+# XP Multipliers – applied per permission node
+multipliers:
+  default: 1.0
+  vip: 2.0       # requires levelsystem.xp.multiplier.vip
+  mvp: 3.0       # requires levelsystem.xp.multiplier.mvp
+  staff: 1.5     # requires levelsystem.xp.multiplier.staff
+
+# Anti-exploit settings
+anti-exploit:
+  enabled: true
+  xp-cooldown-ms: 500         # minimum ms between identical XP gain events
+  max-xp-per-minute: 500      # hard cap per player per minute
+  pattern-detection: true     # detect suspicious XP gain patterns
+
+# =============================================
+#              Storage Settings
+# =============================================
+storage:
+  # Options: sqlite, mysql, mariadb
+  type: sqlite
+
+  # SQLite (no additional config needed)
+  sqlite:
+    file: levelsystem.db
+
+  # MySQL / MariaDB
+  mysql:
+    host: localhost
+    port: 3306
+    database: levelsystem
+    username: root
+    password: ""
+    ssl: false
+    pool-size: 10
+    connection-timeout: 30000
+
+  # Redis cache (optional – cross-server sync)
+  redis:
+    enabled: false
+    host: localhost
+    port: 6379
+    password: ""
+    database: 0
+    # Prefix for all Redis keys
+    key-prefix: "levelsystem:"
+
+# =============================================
+#              UI Settings
+# =============================================
+ui:
+  # Actionbar XP notifications
+  actionbar:
+    enabled: true
+    format: "&a+{amount} XP &7({source})"
+    duration-ticks: 60
+
+  # Level-up title
+  levelup-title:
+    enabled: true
+    title: "&6&lLEVEL UP!"
+    subtitle: "&eYou reached level &6{level}&e!"
+    fade-in: 10
+    stay: 70
+    fade-out: 20
+
+  # Level-up sound
+  levelup-sound:
+    enabled: true
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 1.0
+    pitch: 1.0
+
+  # Boss bar (global XP bar)
+  bossbar:
+    enabled: false
+    format: "&6Level {level} &7| &e{xp}/{xp_required} XP"
+
+# =============================================
+#              Skills Settings
+# =============================================
+skills:
+  enabled: true
+  list:
+    - mining
+    - combat
+    - fishing
+    - farming
+    - crafting
+    - archery
+
+  # Per-skill max level (overrides global max-level)
+  max-level:
+    mining: 50
+    combat: 50
+
+# =============================================
+#            Web Dashboard / REST API
+# =============================================
+rest-api:
+  enabled: false
+  host: "0.0.0.0"
+  port: 8080
+  # Secret key for API authentication
+  secret-key: "change-me-in-production"
+
+# =============================================
+#              Debug / Developer
+# =============================================
+debug: false
